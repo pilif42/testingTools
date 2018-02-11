@@ -1,0 +1,32 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	// Note the " below are essential. With single quotes, springBootVersion and palantirVersion are not recognised.
+	dependencies {
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'brossierp'	// so we can publish to my Docker Cloud account
+version = '0.1.0-SNAPSHOT'
+
+jar {
+	baseName = 'testing-tools'
+	version =  '0.1.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	testCompile('junit:junit:4.12')
+	testCompile('com.jayway.jsonpath:json-path:2.0.0')
+}

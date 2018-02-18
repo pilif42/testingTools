@@ -17,22 +17,22 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.mysample.utils.JsonUtils.GOLDEN_SINGLE_RECORD_JSON;
-import static com.mysample.utils.JsonUtils.NO_EVENT_PAYLOAD_TRAN_FROM;
+import static com.mysample.utils.JsonUtils.NO_EVENT_PAYLOAD_CLUB;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
 
 /**
  * An example of Parameterized unit test.
- * TODO Have it green bar
  */
 @SpringBootTest(classes = {TestConfiguration.class})
 @RunWith(Parameterized.class)
 public class DummyServiceTest {
 
-    private static final String TRANS_FROM_PATH = "$.payload.trans.from";
-    private static final String TRANS_TO_PATH = "$.payload.trans.to";
-    private static final String TRANS_POST_CODE_PATH = "$.payload.trans.postCode";
+    private static final String CLUB_PATH = "$.eventPayload.club";
+    private static final String FROM_PATH = "$.eventPayload.from";
+    private static final String TO_PATH = "$.eventPayload.to";
+    private static final String POST_CODE_PATH = "$.eventPayload.postCode";
 
     @ClassRule
     public static final SpringClassRule SCR = new SpringClassRule();
@@ -47,9 +47,9 @@ public class DummyServiceTest {
     public static Collection<Object[]> data() {
         return asList(new Object[] [] {
                 {GOLDEN_SINGLE_RECORD_JSON,
-                        asList(TRANS_FROM_PATH, TRANS_TO_PATH, TRANS_POST_CODE_PATH)},
-                {NO_EVENT_PAYLOAD_TRAN_FROM,
-                        asList(TRANS_FROM_PATH, TRANS_TO_PATH, TRANS_POST_CODE_PATH)}});
+                        asList(FROM_PATH, TO_PATH, POST_CODE_PATH)},
+                {NO_EVENT_PAYLOAD_CLUB,
+                        asList(FROM_PATH, TO_PATH, POST_CODE_PATH, CLUB_PATH)}});
     }
 
     @Parameterized.Parameter(0)

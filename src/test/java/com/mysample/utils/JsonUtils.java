@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 public class JsonUtils {
 
     public static final String GOLDEN_SINGLE_RECORD_JSON = "theGoldenRecord";
-    public static final String NO_EVENT_PAYLOAD_TRAN_FROM = "no_$.eventPayload.tran.from";
+    public static final String NO_EVENT_PAYLOAD_CLUB = "no_$.eventPayload.club";
     public static final String EMPTY_STRING_VALUE = "emptyString";
     public static final String NULL_VALUE = "nullValue";
 

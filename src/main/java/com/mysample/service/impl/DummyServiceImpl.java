@@ -6,7 +6,6 @@ public class DummyServiceImpl implements DummyService {
 
     @Override
     public String transform(String inputJson) {
-        // TODO
-        return null;
+        return inputJson;
     }
 }

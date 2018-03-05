@@ -1,23 +1,19 @@
 package com.mysample.service;
 
-import com.mysample.config.TestConfiguration;
+import com.mysample.service.impl.DummyServiceImpl;
 import com.mysample.utils.JsonUtils;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
-import static com.mysample.utils.JsonUtils.GOLDEN_SINGLE_RECORD_JSON;
-import static com.mysample.utils.JsonUtils.NO_EVENT_PAYLOAD_CLUB;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
@@ -25,8 +21,7 @@ import static org.junit.Assert.assertThat;
 /**
  * An example of Parameterized unit test.
  */
-@SpringBootTest(classes = {TestConfiguration.class})
-@RunWith(Parameterized.class)
+@RunWith(MockitoJUnitRunner.class)
 public class DummyServiceTest {
 
     private static final String CLUB_PATH = "$.eventPayload.club";
@@ -40,33 +35,34 @@ public class DummyServiceTest {
     @Rule
     public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
-    @Autowired
-    private DummyService dummyService;
-
-    @Parameterized.Parameters(name = "{index}: Input json ''{0}'', paths {1} should not be present after transformation.")
-    public static Collection<Object[]> data() {
-        return asList(new Object[] [] {
-                {GOLDEN_SINGLE_RECORD_JSON,
-                        asList(FROM_PATH, TO_PATH, POST_CODE_PATH)},
-                {NO_EVENT_PAYLOAD_CLUB,
-                        asList(FROM_PATH, TO_PATH, POST_CODE_PATH, CLUB_PATH)}});
-    }
-
-    @Parameterized.Parameter(0)
-    public String inputJsonName;
-
-    @Parameterized.Parameter(1)
-    public List<String> paths;
+    @InjectMocks
+    private DummyServiceImpl dummyService;
 
     @Test
-    public void shouldTestJsonTransformation() throws IOException {
+    public void testWithGoldenJson() throws IOException {
         // Given - Read the input json file
-        String inputJson = JsonUtils.provideInputJson(inputJsonName);
+        final String inputJson = new JsonUtils.InputJsonBuilder().build();
 
         // Convert input json canonical json
         final String transformedJson = dummyService.transform(inputJson);
 
         // Then check the json path is not present in the transformed json
+        verifyPathsAreAbsent(transformedJson, asList(FROM_PATH, TO_PATH, POST_CODE_PATH));
+    }
+
+    @Test
+    public void testWithJsonMissingEventPayloadClub() throws IOException {
+        // Given - Read the input json file
+        final String inputJson = new JsonUtils.InputJsonBuilder().removePath("eventPayload.club").build();
+
+        // Convert input json canonical json
+        final String transformedJson = dummyService.transform(inputJson);
+
+        // Then check the json path is not present in the transformed json
+        verifyPathsAreAbsent(transformedJson, asList(FROM_PATH, TO_PATH, POST_CODE_PATH, CLUB_PATH));
+    }
+
+    private void verifyPathsAreAbsent(String transformedJson, List<String> paths) {
         for (String aPath : paths) {
             assertThat(transformedJson, isJson(withoutJsonPath(aPath)));
         }

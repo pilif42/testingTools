@@ -1,15 +1,14 @@
 package com.mysample.service;
 
+import com.mysample.domain.Case;
+import com.mysample.domain.repository.CaseRepository;
 import com.mysample.service.impl.DummyServiceImpl;
 import com.mysample.utils.JsonUtils;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,23 +16,24 @@ import java.util.List;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 /**
- * An example of Parameterized unit test.
+ * A classic test. See DummyServiceParameterizedTest for a Parameterized unit test.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class DummyServiceTest {
+
+    private static final int ONE = 1;
 
     private static final String CLUB_PATH = "$.eventPayload.club";
     private static final String FROM_PATH = "$.eventPayload.from";
     private static final String TO_PATH = "$.eventPayload.to";
     private static final String POST_CODE_PATH = "$.eventPayload.postCode";
 
-    @ClassRule
-    public static final SpringClassRule SCR = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
+    @Mock
+    private CaseRepository caseRepository;
 
     @InjectMocks
     private DummyServiceImpl dummyService;
@@ -44,6 +44,7 @@ public class DummyServiceTest {
         final String inputJson = new JsonUtils.InputJsonBuilder().build();
 
         // Convert input json canonical json
+        when(caseRepository.updateCase(any(Case.class))).thenReturn(ONE);
         final String transformedJson = dummyService.transform(inputJson);
 
         // Then check the json path is not present in the transformed json
@@ -56,6 +57,7 @@ public class DummyServiceTest {
         final String inputJson = new JsonUtils.InputJsonBuilder().removePath("eventPayload.club").build();
 
         // Convert input json canonical json
+        when(caseRepository.updateCase(any(Case.class))).thenReturn(ONE);
         final String transformedJson = dummyService.transform(inputJson);
 
         // Then check the json path is not present in the transformed json

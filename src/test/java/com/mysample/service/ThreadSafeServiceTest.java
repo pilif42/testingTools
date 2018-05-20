@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  * Comparing this to NonThreadSafeServiceTest, this test always passes even when NUMBER_OF_TASKS_TO_RUN is huge compared
  * to THREAD_POOL_SIZE.
  *
- * It usually takes longer to run generally.
+ * It usually takes longer to run than NonThreadSafeServiceTest.
  */
 public class ThreadSafeServiceTest {
     private final static int THREAD_POOL_SIZE = 5;

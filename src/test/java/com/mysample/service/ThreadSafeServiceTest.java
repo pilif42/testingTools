@@ -9,14 +9,12 @@ import java.util.concurrent.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- * The service NonThreadSafeService is on purpose NOT thread safe. The test below proves it.
+ * Comparing this to NonThreadSafeServiceTest, this test always passes even when NUMBER_OF_TASKS_TO_RUN is huge compared
+ * to THREAD_POOL_SIZE.
  *
- * Instead of always having a final count of NUMBER_OF_TASKS_TO_RUN, the actual result varies with every execution.
- * The reason is that we share a mutable variable upon different threads without synchronizing the access to this variable
- * which results in a race condition.
+ * It usually takes longer to run generally.
  */
-public class NonThreadSafeServiceTest {
-
+public class ThreadSafeServiceTest {
     private final static int THREAD_POOL_SIZE = 5;
     private final static int NUMBER_OF_TASKS_TO_RUN = 1000000;
 
@@ -24,24 +22,24 @@ public class NonThreadSafeServiceTest {
     public void testIncrement() throws InterruptedException, ExecutionException {
         long startingTime = System.currentTimeMillis();
 
-        NonThreadSafeService nonThreadSafeService = new NonThreadSafeService();
+        ThreadSafeService threadSafeService = new ThreadSafeService();
 
-        Callable<NonThreadSafeService> task = () -> {
-            nonThreadSafeService.increment();
+        Callable<ThreadSafeService> task = () -> {
+            threadSafeService.increment();
             // Do assertions here if required
-            return nonThreadSafeService;
+            return threadSafeService;
         };
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
-        List<Future<NonThreadSafeService>> serviceFutureList = new ArrayList<>();
+        List<Future<ThreadSafeService>> serviceFutureList = new ArrayList<>();
         for(int j = 0; j < NUMBER_OF_TASKS_TO_RUN; j++) {
             serviceFutureList.add(executor.submit(task));
         }
 
         // waiting for all the tasks to be finished
         assertEquals(NUMBER_OF_TASKS_TO_RUN, serviceFutureList.size());
-        for(Future<NonThreadSafeService> serviceFuture: serviceFutureList)      {
+        for(Future<ThreadSafeService> serviceFuture: serviceFutureList)      {
             serviceFuture.get();
         }
 
@@ -49,6 +47,6 @@ public class NonThreadSafeServiceTest {
         System.out.print("It took milliseconds: ");
         System.out.println(finishingTime - startingTime);
 
-        assertEquals(NUMBER_OF_TASKS_TO_RUN, nonThreadSafeService.getCount());
+        assertEquals(NUMBER_OF_TASKS_TO_RUN, threadSafeService.getCount());
     }
 }

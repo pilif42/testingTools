@@ -1,5 +1,6 @@
 package com.mysample.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.concurrent.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- * The service NonThreadSafeService is on purpose NOT thread safe. The test below proves it.
+ * The service NonThreadSafeService is on purpose NOT thread safe. The test below proves it. Remove @Ignore for manual run only.
  *
  * Instead of always having a final count of NUMBER_OF_TASKS_TO_RUN, the actual result varies with every execution.
  * The reason is that we share a mutable variable upon different threads without synchronizing the access to this variable
@@ -20,7 +21,7 @@ public class NonThreadSafeServiceTest {
     private final static int THREAD_POOL_SIZE = 5;
     private final static int NUMBER_OF_TASKS_TO_RUN = 1000000;
 
-    @Test
+    @Test @Ignore
     public void testIncrement() throws InterruptedException, ExecutionException {
         long startingTime = System.currentTimeMillis();
 

@@ -1,15 +1,21 @@
 buildscript {
+	ext {
+		springBootVersion = '2.0.2.RELEASE'
+	}
 	repositories {
 		mavenCentral()
 	}
 	// Note the " below are essential. With single quotes, springBootVersion and palantirVersion are not recognised.
 	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'brossierp'	// so we can publish to my Docker Cloud account
 version = '0.1.0-SNAPSHOT'
@@ -22,22 +28,59 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR3'
+	}
+}
+
 repositories {
 	mavenCentral()
 }
 
+// This is to define our module for integration tests
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
 dependencies {
 	compile 'org.slf4j:slf4j-simple:1.7.25'
-	compile 'org.springframework:spring-web:5.0.3.RELEASE'
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 
 	testCompile 'junit:junit:4.12'
 	testCompile 'org.mockito:mockito-core:2.15.0'
-
-	testCompile 'org.springframework:spring-test:5.0.3.RELEASE'
-	testCompile 'org.springframework.boot:spring-boot-test:1.5.10.RELEASE'
-
+	testCompile 'org.springframework:spring-test'
+	testCompile 'org.springframework.boot:spring-boot-test'
 	testCompile 'com.jayway.jsonpath:json-path:2.4.0'
 	testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
-
 	testCompile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
 }
+
+task integrationTest(type: Test) {
+	testClassesDir = sourceSets.integrationTest.output.classesDir
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	// To make sure that integration tests are run on each build
+	outputs.upToDateWhen { false }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+// To make sure that we have separate reports for test and integrationTest
+tasks.withType(Test) {
+	reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+

@@ -29,13 +29,3 @@ Gradle now uses separate output directories for each JVM language, but this buil
 The setTestClassesDir(File) method has been deprecated. This is scheduled to be removed in Gradle 5.0. Please use the setTestClassesDirs(FileCollection) method instead.
         at build_4ffcjyojtvzco4cfsui5ud41x$_run_closure7.doCall(/home/philippe/code/testingTools/build.gradle:73)
         (Run with --stacktrace to get the full stack trace of this deprecation warning.)
-
-
-TODO 2
-Tempo measure: run DummyServiceTest with @RunWith(MockitoJUnitRunner.Silent.class)
-org.mockito.exceptions.misusing.UnnecessaryStubbingException:
-Unnecessary stubbings detected in test class: DummyServiceTest
-Clean & maintainable test code requires zero unnecessary code.
-Following stubbings are unnecessary (click to navigate to relevant line of code):
-  1. -> at com.mysample.utils.LoggingAssertion.givenLoggingMonitored(LoggingAssertion.java:26)
-Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.

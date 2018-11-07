@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 /**
  * A classic test. See DummyServiceParameterizedTest for a Parameterized unit test.
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@RunWith(MockitoJUnitRunner.class)
 public class DummyServiceTest {
 
     private static final int ONE = 1;

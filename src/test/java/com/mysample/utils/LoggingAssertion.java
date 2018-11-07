@@ -13,7 +13,6 @@ import static junit.framework.TestCase.fail;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Works with logback-spring.xml under /test/resources.
@@ -23,7 +22,6 @@ public class LoggingAssertion {
     public static Appender givenLoggingMonitored() {
         ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
         final Appender mockAppender = mock(Appender.class);
-        when(mockAppender.getName()).thenReturn("MOCK");
         root.addAppender(mockAppender);
 
         return mockAppender;

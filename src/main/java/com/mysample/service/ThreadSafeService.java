@@ -1,5 +1,7 @@
 package com.mysample.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -9,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Option 2 with a Lock:ReentrantLock, ReadWriteLock, StampedLock
  * Option 3 with a Semaphore
  */
+@Service
 public class ThreadSafeService {
 
     private int count = 0;

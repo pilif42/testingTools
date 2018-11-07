@@ -21,11 +21,5 @@ or
 
 
 TODO 1
-gradle wrapper --warning-mode all
-> Configure project :
-Gradle now uses separate output directories for each JVM language, but this build assumes a single directory for all classes from a source set. This behaviour has been deprecated and is scheduled to be removed in Gradle 5.0.
-        at build_4ffcjyojtvzco4cfsui5ud41x$_run_closure7.doCall(/home/philippe/code/testingTools/build.gradle:73)
-        (Run with --stacktrace to get the full stack trace of this deprecation warning.)
-The setTestClassesDir(File) method has been deprecated. This is scheduled to be removed in Gradle 5.0. Please use the setTestClassesDirs(FileCollection) method instead.
-        at build_4ffcjyojtvzco4cfsui5ud41x$_run_closure7.doCall(/home/philippe/code/testingTools/build.gradle:73)
-        (Run with --stacktrace to get the full stack trace of this deprecation warning.)
+./gradlew clean build --warning-mode all
+Detecting annotation processors on the compile classpath has been deprecated. Gradle 5.0 will ignore annotation processors on the compile classpath. The following annotation processors were detected on the compile classpath: 'lombok.launch.AnnotationProcessorHider$AnnotationProcessor' and 'lombok.launch.AnnotationProcessorHider$ClaimingProcessor'.  Please add them to the annotation processor path instead. If you did not intend to use annotation processors, you can use the '-proc:none' compiler argument to ignore them.

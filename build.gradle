@@ -78,6 +78,10 @@ compileJava {
 	options.annotationProcessorPath = configurations.apt  // properly separate compile dependencies from the annotation processing path
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" // required when gradle output says: recompile with -Xlint:unchecked for details
+}
+
 task integrationTest(type: Test) {
 	testClassesDirs = sourceSets.integrationTest.output.classesDirs
 	classpath = sourceSets.integrationTest.runtimeClasspath

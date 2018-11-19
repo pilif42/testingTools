@@ -1,3 +1,7 @@
+configurations {
+	apt  // will contain all the annotation processors we use. Required to get rid of warning when using Lombok with Gradle 5.0.
+}
+
 buildscript {
 	ext {
 		springBootVersion = '2.1.0.RELEASE'
@@ -58,7 +62,8 @@ configurations {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-	compile 'org.projectlombok:lombok:1.18.4'
+	compileOnly 'org.projectlombok:lombok:1.18.4'
+	apt 'org.projectlombok:lombok:1.18.4'
 
 	testCompile 'junit:junit:4.12'
 	testCompile 'org.mockito:mockito-core:2.15.0'
@@ -67,6 +72,10 @@ dependencies {
 	testCompile 'com.jayway.jsonpath:json-path:2.4.0'
 	testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
 	testCompile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+}
+
+compileJava {
+	options.annotationProcessorPath = configurations.apt  // properly separate compile dependencies from the annotation processing path
 }
 
 task integrationTest(type: Test) {

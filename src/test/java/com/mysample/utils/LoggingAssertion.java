@@ -21,7 +21,7 @@ public class LoggingAssertion {
 
     public static Appender givenLoggingMonitored() {
         ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
-        final Appender mockAppender = mock(Appender.class);
+        final Appender<ILoggingEvent> mockAppender = mock(Appender.class);
         root.addAppender(mockAppender);
 
         return mockAppender;
@@ -35,7 +35,7 @@ public class LoggingAssertion {
         private List<ILoggingEvent> logEvents;
 
         public LogAssertion(Appender appender) {
-            ArgumentCaptor argument = ArgumentCaptor.forClass(LoggingEvent.class);
+            ArgumentCaptor<ILoggingEvent> argument = ArgumentCaptor.forClass(ILoggingEvent.class);
             verify(appender, atLeastOnce()).doAppend(argument.capture());
             logEvents = argument.getAllValues();
         }

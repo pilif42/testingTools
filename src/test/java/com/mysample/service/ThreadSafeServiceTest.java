@@ -1,6 +1,7 @@
 package com.mysample.service;
 
 import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,14 @@ import static org.junit.Assert.assertEquals;
  * to THREAD_POOL_SIZE.
  *
  * It usually takes longer to run than NonThreadSafeServiceTest.
+ *
+ *
+ * Note that the @DirtiesContext is not required here. I have put it here as a reminder that it solved for me an issue
+ * encountered while testing with Wiremock: tests were running ok inside IntelliJ, ie all tests from one class at a time.
+ * But, on the  * command line (./gradlew clean build), tests were failing due to requests to urls served by WireMock failing.
+ *
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class ThreadSafeServiceTest {
     private final static int THREAD_POOL_SIZE = 5;
     private final static int NUMBER_OF_TASKS_TO_RUN = 1000000;

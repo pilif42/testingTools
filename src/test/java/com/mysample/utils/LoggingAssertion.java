@@ -1,7 +1,6 @@
 package com.mysample.utils;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.Appender;
 import org.mockito.ArgumentCaptor;
 import org.slf4j.LoggerFactory;
@@ -16,6 +15,28 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Works with logback-spring.xml under /test/resources.
+ *
+ * Other option to JUnit log statements:
+ *      - add dependency: testCompile 'uk.org.lidalia:slf4j-test:1.2.0'
+ *      - define a test util with:
+ *              import uk.org.lidalia.slf4jtest.LoggingEvent;
+ *              import uk.org.lidalia.slf4jtest.TestLogger;
+ *              ....
+ *
+ *              static void verifyLogStatements(final TestLogger testLogger, final String eventType) {
+ *                      ImmutableList<LoggingEvent> logList = testLogger.getAllLoggingEvents();
+ *                      assertEquals(1, logList.size());
+ *
+ *                      final LoggingEvent loggingEvent = logList.get(0);
+ *                      assertEquals(format(SUCCESS_PUBLISH_LOGGING_MSG, eventType), loggingEvent.getMessage());
+ *
+ *                      ImmutableList<Object> args = loggingEvent.getArguments();
+ *                      assertEquals(2, args.size());
+ *                      assertEquals(RECORD_IDENTIFIER, args.get(0));
+ *                      assertEquals(PUBLISHER_RECORD_METADATA, args.get(1));
+ *
+ *                      testLogger.clearAll();
+ *              }
  */
 public class LoggingAssertion {
 

@@ -19,17 +19,13 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ResolverServiceITCase.TestConfig.class)
 public class ResolverServiceITCase {
-    private final static String VALID_SERVICE_NAME = "CPP-CPCD-V1-CURRENCY";
-    private final static String URL_SUFFIX = "dev.discoverfinancial.com";
+
+    private final static String VALID_SERVICE_NAME = "caseSvc";
+    private final static String URL_SUFFIX = "sample.com";
 
     @Autowired
     private HostResolver hostResolver;
 
-    /**
-     * Why the @Ignore :
-     *      -1) See the javadoc at the class level.
-     *      -2) VALID_SERVICE_NAME can vary so test too brittle to be run on Jenkins.
-     */
     @Ignore
     @Test
     public void happyPath() {

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HostResolverImplITCase.TestConfig.class)
 public class HostResolverImplITCase {
-    
+
     private final static String VALID_SERVICE_NAME = "caseSvc";
     private final static String URL_SUFFIX = "sample.com";
 

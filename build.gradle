@@ -67,8 +67,19 @@ dependencies {
     compile 'nl.jqno.equalsverifier:equalsverifier:3.0.3'  // to test equals and hashCode methods
 	compile 'org.apache.kafka:kafka-clients:2.1.0'
 
-    testCompile 'junit:junit:4.12'
-	testCompile 'org.mockito:mockito-core:2.15.0'
+    testCompile 'junit:junit:4.13-beta-3'
+	// Messing about with net.bytebuddy below as powermock was forcing bytebuddy at 1.9.3 when mockito needs 1.9.10 to work correctly.
+	testCompile('org.powermock:powermock-api-mockito2:2.0.2') {
+		exclude group: 'net.bytebuddy'
+	}
+	testCompile('org.powermock:powermock-module-junit4:2.0.2'){
+		exclude group: 'net.bytebuddy'
+	}
+	testCompile('org.mockito:mockito-core:2.28.2') {
+		exclude group: 'net.bytebuddy'
+	}
+	testCompile 'net.bytebuddy:byte-buddy:1.9.10'
+	testCompile 'net.bytebuddy:byte-buddy-agent:1.9.10'
 	testCompile 'org.springframework:spring-test'
 	testCompile 'org.springframework.boot:spring-boot-test'
 	testCompile 'com.jayway.jsonpath:json-path:2.4.0'

@@ -86,6 +86,7 @@ dependencies {
 	testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
 	testCompile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
 	testCompile 'org.springframework.kafka:spring-kafka-test'
+	testCompile 'org.assertj:assertj-core:3.13.2'
 }
 
 compileJava {

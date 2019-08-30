@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.assertj.core.api.Assertions;
 
 import java.io.IOException;
 import java.util.List;
@@ -68,6 +69,15 @@ public class DummyServiceTest {
 
         // Then check the json path is not present in the transformed json
         verifyPathsAreAbsent(transformedJson, asList(FROM_PATH, TO_PATH, POST_CODE_PATH, CLUB_PATH));
+    }
+
+    @Test
+    public void toVerifyThatNoExceptionIsThrown() throws IOException {
+        // Given - Read the input json file
+        final String inputJson = new JsonUtils.InputJsonBuilder().removePath("eventPayload.club").build();
+
+        // Then
+        Assertions.assertThatCode(() -> dummyService.transform(inputJson)).doesNotThrowAnyException();
     }
 
     private void verifyPathsAreAbsent(String transformedJson, List<String> paths) {

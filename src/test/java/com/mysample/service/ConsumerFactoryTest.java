@@ -11,20 +11,20 @@ import org.springframework.kafka.test.rule.KafkaEmbedded;
 
 import java.util.Map;
 
-@Ignore
 public class ConsumerFactoryTest {
 
     private static final String BOOTSTRAP_SERVERS_PROPERTY = "bootstrap.servers";
     private static final String INPUT_TOPIC = "inputEvent";
 
-    @ClassRule
-    public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, INPUT_TOPIC);
+//    @ClassRule
+//    public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, INPUT_TOPIC);
 
     @Test
-    public void returnsAConsumerTest() {
+    public void returnsAConsumer() {
         // Given
-        final Map<String, Object> kafkaProducerProperties = KafkaTestUtils.producerProps(embeddedKafka);
-        final String bootstrapServer = kafkaProducerProperties.get(BOOTSTRAP_SERVERS_PROPERTY).toString();
+//        final Map<String, Object> kafkaProducerProperties = KafkaTestUtils.producerProps(embeddedKafka);
+//        final String bootstrapServer = kafkaProducerProperties.get(BOOTSTRAP_SERVERS_PROPERTY).toString();
+        final String bootstrapServer = "TODO";
 
         // When
         Consumer<KafkaEventData> kafkaConsumerService = ConsumerFactory.getKafkaConsumer(bootstrapServer, INPUT_TOPIC);

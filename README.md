@@ -21,4 +21,5 @@ or
 
 
 TODO 1
-Fix ConsumerFactoryTest
+Fix AnotherTest so it can be run inside IntelliJ.
+Fix ConsumerFactoryTest.

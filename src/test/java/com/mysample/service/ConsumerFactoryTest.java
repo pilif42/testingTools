@@ -5,11 +5,13 @@ import com.mysample.service.impl.ConsumerFactory;
 import com.mysample.utils.KafkaTestUtils;
 import org.junit.Assert;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 
 import java.util.Map;
 
+@Ignore
 public class ConsumerFactoryTest {
 
     private static final String BOOTSTRAP_SERVERS_PROPERTY = "bootstrap.servers";

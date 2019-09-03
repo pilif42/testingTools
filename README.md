@@ -20,6 +20,10 @@ or
 ./gradlew clean build
 
 
-TODO 1
-Fix AnotherTest so it can be run inside IntelliJ.
+# To get around the defect in IntelliJ IDEA 2019.2.1 where unit tests do not execute at times
+File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Run tests using
+Switch from Gradle (default) to IntelliJ IDEA.
+
+
+# TODO 
 Fix ConsumerFactoryTest.

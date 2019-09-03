@@ -20,10 +20,10 @@ or
 ./gradlew clean build
 
 
-# To get around the defect in IntelliJ IDEA 2019.2.1 where unit tests do not execute at times
+# To get around the defect in IntelliJ IDEA 2019.2.1 where unit tests do not execute at times: it shows 'Test events were not received'
 File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Run tests using
 Switch from Gradle (default) to IntelliJ IDEA.
 
 
 # TODO 
-Fix ConsumerFactoryTest.
+Fix ConsumerFactoryTest. Check out: https://codenotfound.com/spring-kafka-embedded-unit-test-example.html

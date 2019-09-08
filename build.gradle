@@ -60,8 +60,10 @@ configurations {
 }
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	compile('org.springframework.kafka:spring-kafka')
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 	apt 'org.projectlombok:lombok:1.18.4'
     compile 'nl.jqno.equalsverifier:equalsverifier:3.0.3'  // to test equals and hashCode methods
@@ -81,11 +83,12 @@ dependencies {
 	testCompile 'net.bytebuddy:byte-buddy:1.9.10'
 	testCompile 'net.bytebuddy:byte-buddy-agent:1.9.10'
 	testCompile 'org.springframework:spring-test'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	testCompile 'org.springframework.boot:spring-boot-test'
+	testCompile 'org.springframework.kafka:spring-kafka-test'
 	testCompile 'com.jayway.jsonpath:json-path:2.4.0'
 	testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
 	testCompile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
-	testCompile 'org.springframework.kafka:spring-kafka-test'
 	testCompile 'org.assertj:assertj-core:3.13.2'
 }
 

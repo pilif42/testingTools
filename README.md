@@ -26,4 +26,5 @@ Switch from Gradle (default) to IntelliJ IDEA.
 
 
 # TODO 
-Fix ConsumerFactoryTest. Check out: https://codenotfound.com/spring-kafka-embedded-unit-test-example.html
+Fix SenderImplTest & ReceiverImplTest. Originally from https://codenotfound.com/spring-kafka-embedded-unit-test-example.html
+Get rid of ConsumerFactoryTest.

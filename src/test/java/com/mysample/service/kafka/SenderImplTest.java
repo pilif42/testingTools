@@ -31,7 +31,6 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.kafka.test.assertj.KafkaConditions.key;
 import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
 
-@Ignore("TODO")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext

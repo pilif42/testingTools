@@ -67,7 +67,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 	apt 'org.projectlombok:lombok:1.18.4'
     compile 'nl.jqno.equalsverifier:equalsverifier:3.0.3'  // to test equals and hashCode methods
-	compile 'org.apache.kafka:kafka-clients:2.1.0'
+	compile 'org.apache.kafka:kafka-clients:2.1.1'
 
     testCompile 'junit:junit:4.13-beta-3'
 	// Messing about with net.bytebuddy below as powermock was forcing bytebuddy at 1.9.3 when mockito needs 1.9.10 to work correctly.
@@ -85,7 +85,12 @@ dependencies {
 	testCompile 'org.springframework:spring-test'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	testCompile 'org.springframework.boot:spring-boot-test'
-	testCompile 'org.springframework.kafka:spring-kafka-test'
+	testCompile('org.springframework.kafka:spring-kafka-test') {
+		exclude group: 'org.apache.kafka', module: 'kafka_2.11'	// exclusion required as explained at https://docs.spring.io/spring-kafka/docs/2.2.7.RELEASE/reference/html/#deps-for-21x (Appendix A: Override Dependencies to use the 2.1.x kafka-clients with an Embedded Broker)
+	}
+	testCompile('org.apache.kafka:kafka-clients:2.1.1:test')
+	testCompile('org.apache.kafka:kafka_2.12:2.1.1')
+	testCompile('org.apache.kafka:kafka_2.12:2.1.1:test')
 	testCompile 'com.jayway.jsonpath:json-path:2.4.0'
 	testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
 	testCompile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'

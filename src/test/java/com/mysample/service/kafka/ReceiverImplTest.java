@@ -2,7 +2,6 @@ package com.mysample.service.kafka;
 
 import org.junit.Before;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore("TODO")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext

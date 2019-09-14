@@ -23,8 +23,3 @@ or
 # To get around the defect in IntelliJ IDEA 2019.2.1 where unit tests do not execute at times: it shows 'Test events were not received'
 File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Run tests using
 Switch from Gradle (default) to IntelliJ IDEA.
-
-
-# TODO 
-Fix SenderImplTest & ReceiverImplTest. Originally from https://codenotfound.com/spring-kafka-embedded-unit-test-example.html
-Get rid of ConsumerFactoryTest.

@@ -7,9 +7,10 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Several options to make it thread-safe:
  *
- * Option 1 with synchronized
- * Option 2 with a Lock:ReentrantLock, ReadWriteLock, StampedLock
- * Option 3 with a Semaphore
+ * Option 1 : make count a AtomicInteger and use count.incrementAndGet(); in increment()
+ * Option 2 : synchronized
+ * Option 3 : a Lock:ReentrantLock, ReadWriteLock, StampedLock
+ * Option 4 : a java.util.concurrent.Semaphore
  */
 @Service
 public class ThreadSafeService {
@@ -23,15 +24,17 @@ public class ThreadSafeService {
     }
 
     /**
-     * Option 1
+     * Option 2
+     * The lock behind the synchronized methods and blocks is a reentrant. This means the current thread
+     * can acquire the same synchronized lock over and over again while holding it.
      *
-     * synchronized public void increment() {
+     * public synchronized void increment() {
      * count = count + 1;
      * }
      */
 
     /**
-     * Option 2
+     * Option 3
      */
     public void increment() {
         lock.lock();
